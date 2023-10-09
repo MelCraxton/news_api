@@ -1,3 +1,5 @@
+from send_email import send_email
+
 #  Use requests when you want to browse an api
 import requests
 
@@ -16,6 +18,12 @@ request = requests.get(url)
 content = request.json()
 
 # Access the article title and description
+body = ''
 for article in content['articles']:
-    print(article['title'])
-    print(article['author'])
+    # print(article['title'])
+    # print(article['author'])
+    if article['title'] is not None:
+        body = body + article['title'] + "\n" + article['url'] + 2* '\n'
+
+body = body.encode('utf-8')
+send_email(message=body)
